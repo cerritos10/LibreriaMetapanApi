@@ -12,6 +12,7 @@ app.use(express.json());
 
 //Rutas del proyecto
 app.use('/categorias', require('../src/controllers/categorias'))
+app.use('/roles', require('../src/controllers/roles'))
 
 //Conexion de puerto
 app.listen(PORT, () => {
