@@ -16,6 +16,7 @@ app.use(cors());
 app.use('/api/categorias', require('../src/controllers/categorias'))
 app.use('/api/roles', require('../src/controllers/roles'))
 app.use('/api/marcas', require('../src/controllers/marcas'))
+app.use('/api/clientes', require('../src/controllers/clientes'))
 
 //Conexion de puerto
 app.listen(PORT, () => {
