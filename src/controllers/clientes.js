@@ -1,3 +1,11 @@
+/**
+ * Servicio de clientes, ver, insertar, editar y eliminar clientes
+ * @params reques, id, solicita el id o los datos del cliente
+ * @returns response data, retorna datos o errores
+ * @author Josue Cruz
+ */
+
+
 const clientes = require('express').Router()
 //Parametro de entrada
 const req = require('express/lib/request');
@@ -6,7 +14,7 @@ const res = require('express/lib/response');
 const db = require('../conexion');
 
 //Rutas del los controladores
-//Consulta de categoria en general
+//Consulta de clientes en general
 clientes.get('/', (req, res) =>{
     db.query('SELECT * FROM cliente', (err, data) =>{
         if(err || Object.keys(data).length === 0){
@@ -21,7 +29,7 @@ clientes.get('/', (req, res) =>{
     })
 }) 
 
-//Consulta de categoria por especifico
+//Consulta de clientes por especifico
 clientes.get('/:id', (req, res)=>{
     const {id} = req.params;
     db.query('SELECT * FROM cliente WHERE id_cliente = ?', [id], (err, data)=>{
@@ -39,7 +47,7 @@ clientes.get('/:id', (req, res)=>{
     })
 })
 
-//Insertar categoria
+//Insertar clientes
 clientes.post('/', (req, res)=>{
     console.log(Object.values(req.body));
     const values = Object.values(req.body);
@@ -59,7 +67,7 @@ clientes.post('/', (req, res)=>{
     })
 })
 
-//Actualizar las categoria
+//Actualizar los clientes
 clientes.put('/:id', (req, res)=>{
     console.log(Object.values(req.body));
     const values = Object.values(req.body);
@@ -80,7 +88,7 @@ clientes.put('/:id', (req, res)=>{
     })
 })
 
-//Borrar categoria
+//Borrar clientes
 clientes.delete('/:id', (req, res)=>{
     console.log(req.params.id)
     const ID = req.params.id;
