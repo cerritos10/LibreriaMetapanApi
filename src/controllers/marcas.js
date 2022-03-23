@@ -1,4 +1,4 @@
-const categorias = require('express').Router()
+const marcas = require('express').Router()
 //Parametro de entrada
 const req = require('express/lib/request');
 //Parametro de salida
@@ -6,13 +6,13 @@ const res = require('express/lib/response');
 const db = require('../conexion');
 
 //Rutas del los controladores
-//Consulta de categoria en general
-categorias.get('/', (req, res) =>{
-    db.query('SELECT * FROM categoria', (err, data) =>{
+//Consulta de marcas en general
+marcas.get('/', (req, res) =>{
+    db.query('SELECT * FROM marca', (err, data) =>{
         if(err || Object.keys(data).length === 0){
             res.json({
                 Status: `ERROR: (${err})`,
-                Message: `No se han podido encontrar ninguna categoria registrada`
+                Message: `No se han podido encontrar ninguna marca registrada`
             });
         }
         res.json({
@@ -21,14 +21,14 @@ categorias.get('/', (req, res) =>{
     })
 }) 
 
-//Consulta de categoria por especifico
-categorias.get('/:id', (req, res)=>{
+//Consulta de marcas por especifico
+marcas.get('/:id', (req, res)=>{
     const {id} = req.params;
-    db.query('SELECT * FROM categoria WHERE id_categoria = ?', [id], (err, data)=>{
+    db.query('SELECT * FROM marca WHERE id_marca = ?', [id], (err, data)=>{
         if (Object.keys(data).length === 0 || err ) {
             res.json({
                 Status: `ERROR: (${err})`,
-                Message: `No se ha podido localizar ninguna categoria`
+                Message: `No se ha podido localizar ninguna marca`
             });
         }
         else{
@@ -39,64 +39,64 @@ categorias.get('/:id', (req, res)=>{
     })
 })
 
-//Insertar categoria
-categorias.post('/', (req, res)=>{
+//Insertar marcas
+marcas.post('/', (req, res)=>{
     console.log(Object.values(req.body));
     const values = Object.values(req.body);
-    const sql = "INSERT INTO categoria(nombre_categoria) VALUES(?)";
+    const sql = "INSERT INTO marca(nombre_marca) VALUES(?)";
     db.query(sql, values, (err, insert)=>{
         if(err){
             res.json({
                 Status: `ERROR: (${err})`,
-                Message: `No se ha podido insertar la categoria`
+                Message: `No se ha podido insertar la marca`
             });
         }
         res.json({
             Status: 'Success',
-            Message: 'La categoria se creado correctamente!!',
+            Message: 'La marca se creado correctamente!!',
             insert
         })
     })
 })
 
-//Actualizar las categoria
-categorias.put('/:id', (req, res)=>{
+//Actualizar las marcas
+marcas.put('/:id', (req, res)=>{
     console.log(Object.values(req.body));
     const values = Object.values(req.body);
     const ID = req.params.id;
-    const sql = "UPDATE categoria SET nombre_categoria=? WHERE id_categoria=?";
+    const sql = "UPDATE marca SET nombre_marca=? WHERE id_marca=?";
     db.query(sql,[values, ID], (err, modif)=>{
         if(err){
             res.json({
                 Status: `ERROR: (${err})`,
-                Message: `No se ha podido modificar la categoria`
+                Message: `No se ha podido modificar la marca`
             });
         }
         res.json({
             Status: 'Success',
-            Message: 'La categoria ha sido modificado',
+            Message: 'La marca ha sido modificado',
             modif
         })
     })
 })
 
-//Borrar categoria
-categorias.delete('/:id', (req, res)=>{
+//Borrar marca
+marcas.delete('/:id', (req, res)=>{
     console.log(req.params.id)
     const ID = req.params.id;
-    const sql = "DELETE FROM categoria WHERE id_categoria=?";
+    const sql = "DELETE FROM marca WHERE id_marca=?";
     db.query(sql, [ID], (err, delet)=>{
         if(err){
             res.json({
                 Status: `ERROR: (${err})`,
-                Message: `ERROR al eliminar la categoria`
+                Message: `ERROR al eliminar la marca`
             });
         }
         res.json({
-            Status: 'Message: La categoria ha sido eliminado',
+            Status: 'Message: La marca ha sido eliminado',
             delet
         })
     })
 })
 
-module.exports = categorias;
+module.exports = marcas;
