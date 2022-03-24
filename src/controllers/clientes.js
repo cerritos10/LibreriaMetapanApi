@@ -12,6 +12,7 @@ const req = require('express/lib/request');
 //Parametro de salida
 const res = require('express/lib/response');
 const db = require('../conexion');
+const cors = require('cors');
 
 //Rutas del los controladores
 //Consulta de clientes en general
@@ -70,10 +71,17 @@ clientes.post('/', (req, res)=>{
 //Actualizar los clientes
 clientes.put('/:id', (req, res)=>{
     console.log(Object.values(req.body));
+    console.log(req.body);
     const values = Object.values(req.body);
-    const ID = req.params.id;
-    const sql = "UPDATE cliente SET nombre=?, telefono=?, sexo=? WHERE id_cliente = ?"
-    db.query(sql,[values, ID], (err, modif)=>{
+    const {ID} = req.params.id;
+    const client = {
+        nombre: req.body.nombre,        
+        telefono: req.body.telefono,
+        sexo: req.body.sexo
+    }
+    const sql = "UPDATE cliente SET nombre='"+ client.nombre +"', telefono='"+ client.telefono+"', sexo= '"+client.sexo+"' WHERE id_cliente = ?";
+//    const sql = "UPDATE cliente SET nombre=?, telefono=?, sexo=? WHERE id_cliente = ?";
+    db.query(sql,[ID], (err, modif)=>{
         if(err){
             res.json({
                 Status: `ERROR: (${err})`,
