@@ -73,12 +73,13 @@ clientes.put('/:id', (req, res)=>{
     console.log(Object.values(req.body));
     console.log(req.body);
     const values = Object.values(req.body);
-    const {ID} = req.params.id;
+    const ID = req.params.id;
     const client = {
         nombre: req.body.nombre,        
         telefono: req.body.telefono,
         sexo: req.body.sexo
     }
+    console.log([ID]);
     const sql = "UPDATE cliente SET nombre='"+ client.nombre +"', telefono='"+ client.telefono+"', sexo= '"+client.sexo+"' WHERE id_cliente = ?";
 //    const sql = "UPDATE cliente SET nombre=?, telefono=?, sexo=? WHERE id_cliente = ?";
     db.query(sql,[ID], (err, modif)=>{
