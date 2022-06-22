@@ -18,6 +18,7 @@ app.use('/api/roles', require('../src/controllers/roles'))
 app.use('/api/marcas', require('../src/controllers/marcas'))
 app.use('/api/clientes', require('../src/controllers/clientes'))
 app.use('/api/tipoventa', require('../src/controllers/tipoventa'))
+app.use('/api/compra', require('../src/controllers/compra'))
 
 //Conexion de puerto
 app.listen(PORT, () => {
