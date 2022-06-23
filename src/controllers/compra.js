@@ -13,6 +13,7 @@ const req = require('express/lib/request');
 const res = require('express/lib/response');
 const db = require('../conexion');
 const cors = require('cors');
+const { json } = require('express/lib/response');
 
 //Rutas del los controladores
 //Consulta de compra en general
@@ -24,30 +25,43 @@ compra.get('/', (req, res) =>{
                 Message: `No se ha podido encontrar ninguna compra`
             });
         }
-        res.json({
-            data
-        })
-/*       else if(Object.keys(data))
+        else if(Object.keys(data))
         {
-            //console.log(data)
-            let compraOriginal = []
-            let detalleCompraList = []
-            for(let i = 0; i < data.length; i++)
-            {
-                compraOriginal.push(data[i])
-                db.query('SELECT * FROM detallecompra WHERE id_detalle_compra = '+ data[i].id_compra, (err, data2) => {
-                    detalleCompraList.push(data2)
-                    console.log(data2)
-                });
-            }
+            let dataCompraOriginal = data
+            //let detalle = getDetalleCompra(data[0].id_compra)
+            //console.log(detalle)
             res.json({
-                detalleCompraList
+                dataCompraOriginal
             })
-            console.log(compraOriginal)
         }
-*/
     })
 }) 
+
+/**
+ * Intentando retraer el detalle del cliente en forma de un array para listar todo desde un json
+ * en el front :) aun no funciona xd
+ * @params id de la compra
+ * @returns array or json with info of purchase details
+ * @author Josue Cruz
+ */
+const getDetalleCompra = (idCompra) => 
+{
+    const itemDetalleCompra = []
+    db.query('SELECT * FROM detallecompra WHERE id_detalle_compra = ' + idCompra, (err, data2)=>{
+        if (Object.keys(data2).length === 0 || err ) {
+            console.log(json({
+                Status: `ERROR: (${err})`,
+                Message: `No se ha podido localizar ningun item asociado a compra`
+            }))
+        }
+        else{
+            //console.log(data2)
+            itemDetalleCompra.N = JSON.stringify(data2)
+            return itemDetalleCompra
+        }
+    })
+    return itemDetalleCompra
+}
 
 //Consulta de compra por especifico
 compra.get('/:id', (req, res)=>{
