@@ -27,43 +27,14 @@ compra.get('/', (req, res) =>{
         }
         else if(Object.keys(data))
         {
-            let dataCompraOriginal = data
-            //let detalle = getDetalleCompra(data[0].id_compra)
-            //console.log(detalle)
             res.json({
-                dataCompraOriginal
+                data
             })
         }
     })
 }) 
 
-/**
- * Intentando retraer el detalle del cliente en forma de un array para listar todo desde un json
- * en el front :) aun no funciona xd
- * @params id de la compra
- * @returns array or json with info of purchase details
- * @author Josue Cruz
- */
-const getDetalleCompra = (idCompra) => 
-{
-    const itemDetalleCompra = []
-    db.query('SELECT * FROM detallecompra WHERE id_detalle_compra = ' + idCompra, (err, data2)=>{
-        if (Object.keys(data2).length === 0 || err ) {
-            console.log(json({
-                Status: `ERROR: (${err})`,
-                Message: `No se ha podido localizar ningun item asociado a compra`
-            }))
-        }
-        else{
-            //console.log(data2)
-            itemDetalleCompra.N = JSON.stringify(data2)
-            return itemDetalleCompra
-        }
-    })
-    return itemDetalleCompra
-}
-
-//Consulta de compra por especifico
+//Consulta de detalle de compra.
 compra.get('/:id', (req, res)=>{
     const {id} = req.params;
     db.query('SELECT * FROM compra WHERE id_compra = ?', [id], (err, data)=>{
@@ -100,8 +71,6 @@ compra.post('/', (req, res)=>{
         })
     })
 })
-//Detalle compra INSERT INTO `detallecompra`(`id_compra`, `id_producto`, `cantidad`, `precio_compra`) VALUES (1,1,50,0.15);
-
 
 //Actualizar los compra
 compra.put('/:id', (req, res)=>{
