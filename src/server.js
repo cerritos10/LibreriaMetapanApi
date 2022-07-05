@@ -21,6 +21,10 @@ app.use('/api/tipoventa', require('../src/controllers/tipoventa'))
 app.use('/api/compra', require('../src/controllers/compra'))
 app.use('/api/detallecompra', require('../src/controllers/detallecompra'))
 
+
+//Rutas para las graficas
+app.use('/api/grafStock', require('../src/controllers/grafStock'))
+
 //Conexion de puerto
 app.listen(PORT, () => {
     console.log('El servidor esta corriendo en el puesto: ' + PORT)
