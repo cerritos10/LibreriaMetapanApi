@@ -20,7 +20,7 @@ app.use('/api/clientes', require('../src/controllers/clientes'))
 app.use('/api/tipoventa', require('../src/controllers/tipoventa'))
 app.use('/api/compra', require('../src/controllers/compra'))
 app.use('/api/detallecompra', require('../src/controllers/detallecompra'))
-
+app.use('/api/productos', require('../src/controllers/productos'))
 
 //Rutas para las graficas
 app.use('/api/grafStock', require('../src/controllers/grafStock'))
