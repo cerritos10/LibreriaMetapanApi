@@ -25,6 +25,7 @@ app.use('/api/productos', require('../src/controllers/productos'))
 
 //Rutas para las graficas
 app.use('/api/grafStock', require('../src/controllers/grafStock'))
+app.use('/api/grafTotalCompras', require('../src/controllers/grafTotalCompras'))
 
 //Conexion de puerto
 app.listen(PORT, () => {
