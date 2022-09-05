@@ -90,7 +90,10 @@ users.post('/login', (req, res)=>{
                     token
                 })
             }else{
-                res.json('La contraseña es incorrecta');
+                res.json({
+                    Status: 'Error',
+                    Message: 'La contraseña es incorrecta'
+                })
             }
 
         }
